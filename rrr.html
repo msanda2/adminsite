@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mentor Admin Dashboard Login</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: black;
+      font-family: 'Poppins', sans-serif;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .login-box {
+      background: black;
+      border-radius: 20px;
+      padding: 30px 20px;
+      border: 2px solid purple;
+      box-shadow: 0 0 20px #0ff, 0 0 50px purple;
+      width: 320px;
+      text-align: center;
+    }
+    .login-box h1 {
+      color: cyan;
+      font-size: 32px;
+      margin: 0;
+      font-weight: bold;
+    }
+    .login-box h2 {
+      color: cyan;
+      font-size: 16px;
+      font-weight: normal;
+      margin-bottom: 30px;
+    }
+    .login-box input {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0 20px 0;
+      background: #000;
+      border: 1px solid #0ff;
+      border-radius: 10px;
+      color: cyan;
+      font-size: 16px;
+      outline: none;
+    }
+    .login-box button {
+      width: 100%;
+      padding: 12px;
+      background: cyan;
+      color: #000;
+      border: none;
+      border-radius: 10px;
+      font-size: 18px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .login-box button:hover {
+      background: purple;
+    }
+    .login-box .forgot {
+      margin-top: 15px;
+      color: #00ffff;
+      font-size: 14px;
+    }
+    .login-box .forgot a {
+      color: cyan;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    .login-box .terms {
+      margin-top: 20px;
+      font-size: 12px;
+      color: purple;
+    }
+  </style>
+</head>
+<body>
+
+<div class="login-box">
+  <h1>Mentor</h1>
+  <h2>Admin Dashboard</h2>
+
+  <form onsubmit="return loginFunction()">
+    <input type="email" id="email" placeholder="Email" required>
+    <input type="password" id="password" placeholder="************" required>
+    <button type="submit">Login</button>
+  </form>
+
+  <div class="forgot">
+    Forgot password?<br>
+    Only admins with an account!<br>
+    <a href="signup2.html">Sign Up</a>
+  </div>
+
+  <div class="terms">
+    Terms of use. Privacy policy.
+  </div>
+</div>
+
+<script>
+function loginFunction() {
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
+
+  const userData = localStorage.getItem(email);
+
+  if (!userData) {
+    alert("Account not found. Please Sign Up first.");
+    return false;
+  }
+
+  const user = JSON.parse(userData);
+
+  if (user.password !== password) {
+    alert("Incorrect password.");
+    return false;
+  }
+
+  if (!user.activated) {
+    alert("Your account is not activated yet. Please contact +27633812033.");
+    return false;
+  }
+
+  // If everything is correct
+  alert("Login successful!");
+  window.location.href = "dashboard.html"; // Go to dashboard
+  return false;
+}
+</script>
+
+</body>
+</html>
